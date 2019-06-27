@@ -31,7 +31,6 @@ namespace DeezerParser
             var songs = new List<Song>();
             foreach (var track in playlist["tracks"]["data"])
             {
-                var kek = track.ToString();
                 int dur = int.Parse(track["duration"].ToString());
                 int minutes = dur / 60;
                 string seconds = (dur % 60).ToString();
@@ -47,13 +46,11 @@ namespace DeezerParser
                 });
 
             }
-
             SongsGrid.ItemsSource = songs;
             SongsGrid.CanUserDeleteRows = false;
             SongsGrid.CanUserAddRows = false;
             SongsGrid.CanUserReorderColumns = false;
             SongsGrid.IsReadOnly = true;
-
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {

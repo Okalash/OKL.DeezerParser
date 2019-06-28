@@ -25,8 +25,8 @@ namespace DeezerParser
         private async Task GetInfoAsync(string linkToParse)
         {
             var client = new HttpClient();
-            var arrayLink = linkToParse.Split('/');
-            string html = await client.GetStringAsync("https://api.deezer.com/playlist/" + arrayLink[arrayLink.Length - 1]);
+            var arrayLink = linkToParse.Split('/'); // parse the id of playlist
+            string html = await client.GetStringAsync("https://api.deezer.com/playlist/" + arrayLink[arrayLink.Length - 1]); //use official api
             var playlist = JObject.Parse(html);
             var songs = new List<Song>();
             foreach (var track in playlist["tracks"]["data"])
@@ -38,6 +38,7 @@ namespace DeezerParser
                 {
                     seconds = "0" + seconds;
                 }
+                //add info about track
                 songs.Add(new Song()
                 {
                     Artist = track["artist"]["name"].ToString(),
@@ -46,6 +47,7 @@ namespace DeezerParser
                 });
 
             }
+            //ban on changing the table
             SongsGrid.ItemsSource = songs;
             SongsGrid.CanUserDeleteRows = false;
             SongsGrid.CanUserAddRows = false;
